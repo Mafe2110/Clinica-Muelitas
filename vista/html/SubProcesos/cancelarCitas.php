@@ -14,7 +14,9 @@ if ($result && $result->num_rows > 0) {
                 <td><?php echo $fila->CitFecha; ?></td>
                 <td><?php echo $fila->CitHora; ?></td>
                 <td>
-                    <a href="#" onclick="confirmarCancelar(<?php echo $fila->CitNumero; ?>); return false;">Cancelar</a>
+                    <a href="#" class="btnConfirmar" data-id="<?php echo $fila->CitNumero; ?>">
+                        Cancelar
+                    </a>
                 </td>
             </tr>
         <?php } ?>

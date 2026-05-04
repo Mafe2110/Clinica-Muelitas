@@ -1,12 +1,12 @@
 <?php
 $pageTitle = 'Asignar Cita - Sistema de Gestion Odontologica';
 $extraHead = '
-<link rel="stylesheet" type="text/css" href="vista/jquery/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/clinica_muelitas/vista/jquery/jquery-ui.css">
 ';
 $extraScripts = '
-<script src="vista/jquery/jquery-1.11.3.min.js"></script>
-<script src="vista/jquery/jquery-ui.js"></script>
-<script src="vista/js/script.js"></script>
+<script src="/clinica_muelitas/vista/jquery/jquery-1.11.3.min.js"></script>
+<script src="/clinica_muelitas/vista/jquery/jquery-ui.js"></script>
+<script src="/clinica_muelitas/vista/js/script.js"></script>
 ';
 require_once __DIR__ . '/parcial/header.php';
 require_once __DIR__ . '/parcial/menu.php';
@@ -80,48 +80,6 @@ require_once __DIR__ . '/parcial/menu.php';
                 <td colspan="2">
                     <input type="submit" value="Enviar" id="asignarEnviar" name="asignarEnviar">
                 </td>
-            </tr>
-        </table>
-    </form>
-</div>
-
-<div id="frmPaciente" title="Agregar nuevo Paciente" style="display:none;">
-    <form id="agregarPaciente">
-        <table>
-            <tr>
-                <td>Documento</td>
-                <td><input type="text" name="pacDocumento" id="pacDocumento" readonly="readonly"></td>
-            </tr>
-
-            <tr>
-                <td>Nombres</td>
-                <td><input type="text" name="pacNombres" id="pacNombres"></td>
-            </tr>
-
-            <tr>
-                <td>Apellidos</td>
-                <td><input type="text" name="pacApellidos" id="pacApellidos"></td>
-            </tr>
-
-            <tr>
-                <td>Fecha de nacimiento</td>
-                <td><input type="text" name="pacNacimiento" id="pacNacimiento"></td>
-            </tr>
-
-            <tr>
-                <td>Sexo</td>
-                <td>
-                    <select name="pacSexo" id="pacSexo">
-                        <option selected="">--- Seleccione el sexo ---</option>
-                        <option>M</option>
-                        <option>F</option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Telefono</td>
-                <td><input type="text" name="pacTelefono" id="pacTelefono"></td>
             </tr>
         </table>
     </form>

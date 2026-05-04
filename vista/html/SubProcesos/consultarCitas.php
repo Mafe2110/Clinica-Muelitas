@@ -14,7 +14,7 @@ if ($result && $result->num_rows > 0) {
                 <td><?php echo $fila->CitFecha; ?></td>
                 <td><?php echo $fila->CitHora; ?></td>
                 <td>
-                    <a href="index.php?accion=verCita&numero=<?php echo $fila->CitNumero; ?>">Ver</a>
+                    <a href="index.php?accion=verCita&numero=<?php echo $fila->CitNumero; ?>" class="boton-suave">Ver</a>
                 </td>
             </tr>
         <?php } ?>

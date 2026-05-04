@@ -23,6 +23,10 @@ require_once __DIR__ . '/parcial/menu.php';
                 <td>Nombres</td>
                 <td><?php echo $fila->PacNombres . " " . $fila->PacApellidos; ?></td>
             </tr>
+            <tr>
+                <td>Teléfono</td>
+                <td><?php echo $fila->PacTelefono; ?></td>
+            </tr>
 
             <tr>
                 <th colspan="2">Datos del Médico</th>

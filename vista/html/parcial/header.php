@@ -17,5 +17,5 @@ if (!isset($extraHead)) {
 <body>
 <div id="contenedor">
     <div id="encabezado">
-        <h1>Sistema de Gestión Odontológica</h1>
+        <h1></h1>
     </div>

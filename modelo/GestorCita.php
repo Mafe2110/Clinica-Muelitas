@@ -111,9 +111,10 @@ class GestorCita
         $apellidos = $this->esc($conexion, $paciente->obtenerApellidos());
         $fechaNacimiento = $this->esc($conexion, $paciente->obtenerFechaNacimiento());
         $sexo = $this->esc($conexion, $paciente->obtenerSexo());
+        $telefono = $this->esc($conexion, $paciente->obtenerTelefono());
 
-        $sql = "INSERT INTO pacientes
-                VALUES ('$identificacion', '$nombres', '$apellidos', '$fechaNacimiento', '$sexo')";
+        $sql = "INSERT INTO pacientes (PacIdentificacion, PacNombres, PacApellidos, PacFechaNacimiento, PacSexo, PacTelefono)
+                VALUES ('$identificacion', '$nombres', '$apellidos', '$fechaNacimiento', '$sexo', '$telefono')";
 
         $conexion->consulta($sql);
         $filasAfectadas = $conexion->obtenerFilasAfectadas();
