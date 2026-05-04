@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
--- http://www.phpmyadmin.net
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-02-2017 a las 02:04:38
--- Versión del servidor: 5.6.26
--- Versión de PHP: 5.6.12
+-- Tiempo de generación: 04-05-2026 a las 04:32:20
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `clinica_muelitas`
 --
-CREATE DATABASE IF NOT EXISTS `clinica_muelitas` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `clinica_muelitas`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +27,7 @@ USE `clinica_muelitas`;
 -- Estructura de tabla para la tabla `citas`
 --
 
-CREATE TABLE IF NOT EXISTS `citas` (
+CREATE TABLE `citas` (
   `CitNumero` int(11) NOT NULL,
   `CitFecha` date NOT NULL,
   `CitHora` time NOT NULL,
@@ -37,15 +36,15 @@ CREATE TABLE IF NOT EXISTS `citas` (
   `CitConsultorio` int(11) NOT NULL,
   `CitEstado` varchar(20) NOT NULL,
   `CitObservaciones` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `citas`
 --
 
 INSERT INTO `citas` (`CitNumero`, `CitFecha`, `CitHora`, `CitPaciente`, `CitMedico`, `CitConsultorio`, `CitEstado`, `CitObservaciones`) VALUES
-(2, '2016-12-12', '08:00:00', '1', '1', 2, 'solicitada', 'ninguna'),
-(3, '2016-12-12', '08:20:00', '1', '1', 2, 'solicitada', 'ninguna');
+(5, '2026-05-03', '11:20:00', '1106228736', '1106227843', 2, 'Cancelada', 'Ninguna'),
+(6, '2026-05-04', '09:40:00', '1106228736', '1106227843', 2, 'Solicitada', 'Ninguna');
 
 -- --------------------------------------------------------
 
@@ -53,10 +52,10 @@ INSERT INTO `citas` (`CitNumero`, `CitFecha`, `CitHora`, `CitPaciente`, `CitMedi
 -- Estructura de tabla para la tabla `consultorios`
 --
 
-CREATE TABLE IF NOT EXISTS `consultorios` (
+CREATE TABLE `consultorios` (
   `ConNumero` int(11) NOT NULL,
   `ConNombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `consultorios`
@@ -71,9 +70,9 @@ INSERT INTO `consultorios` (`ConNumero`, `ConNombre`) VALUES
 -- Estructura de tabla para la tabla `horas`
 --
 
-CREATE TABLE IF NOT EXISTS `horas` (
+CREATE TABLE `horas` (
   `hora` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `horas`
@@ -99,18 +98,19 @@ INSERT INTO `horas` (`hora`) VALUES
 -- Estructura de tabla para la tabla `medicos`
 --
 
-CREATE TABLE IF NOT EXISTS `medicos` (
+CREATE TABLE `medicos` (
   `MedIdentificacion` varchar(20) NOT NULL,
   `MedNombres` varchar(50) NOT NULL,
-  `MedApellidos` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `MedApellidos` varchar(50) NOT NULL,
+  `MedUsuId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `medicos`
 --
 
-INSERT INTO `medicos` (`MedIdentificacion`, `MedNombres`, `MedApellidos`) VALUES
-('1', 'Jose', 'López');
+INSERT INTO `medicos` (`MedIdentificacion`, `MedNombres`, `MedApellidos`, `MedUsuId`) VALUES
+('1106227843', 'Sebastian', 'Sierra Mirquez', 1);
 
 -- --------------------------------------------------------
 
@@ -118,20 +118,23 @@ INSERT INTO `medicos` (`MedIdentificacion`, `MedNombres`, `MedApellidos`) VALUES
 -- Estructura de tabla para la tabla `pacientes`
 --
 
-CREATE TABLE IF NOT EXISTS `pacientes` (
+CREATE TABLE `pacientes` (
   `PacIdentificacion` varchar(20) NOT NULL,
   `PacNombres` varchar(50) NOT NULL,
   `PacApellidos` varchar(50) NOT NULL,
   `PacFechaNacimiento` date NOT NULL,
-  `PacSexo` varchar(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `PacSexo` varchar(1) NOT NULL,
+  `PacTelefono` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `pacientes`
 --
 
-INSERT INTO `pacientes` (`PacIdentificacion`, `PacNombres`, `PacApellidos`, `PacFechaNacimiento`, `PacSexo`) VALUES
-('1', 'leo', 'river', '2015-11-11', 'F');
+INSERT INTO `pacientes` (`PacIdentificacion`, `PacNombres`, `PacApellidos`, `PacFechaNacimiento`, `PacSexo`, `PacTelefono`) VALUES
+('1', 'leo', 'river', '2015-11-11', 'F', ''),
+('1106228736', 'Juanito', 'Perez', '2001-01-01', 'M', '3112012253'),
+('111', 'si', 'so', '2026-05-03', 'M', '');
 
 -- --------------------------------------------------------
 
@@ -139,15 +142,15 @@ INSERT INTO `pacientes` (`PacIdentificacion`, `PacNombres`, `PacApellidos`, `Pac
 -- Estructura de tabla para la tabla `tratamientos`
 --
 
-CREATE TABLE IF NOT EXISTS `tratamientos` (
-  `TraNumero` int(10) unsigned NOT NULL,
+CREATE TABLE `tratamientos` (
+  `TraNumero` int(10) UNSIGNED NOT NULL,
   `TraFechaAsignado` date NOT NULL,
   `TraDescripcion` text NOT NULL,
   `TraFechaInicio` date NOT NULL,
   `TraFechaFin` date NOT NULL,
   `TraObservaciones` text NOT NULL,
   `TraPaciente` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `tratamientos`
@@ -156,6 +159,25 @@ CREATE TABLE IF NOT EXISTS `tratamientos` (
 INSERT INTO `tratamientos` (`TraNumero`, `TraFechaAsignado`, `TraDescripcion`, `TraFechaInicio`, `TraFechaFin`, `TraObservaciones`, `TraPaciente`) VALUES
 (1, '2015-10-29', 'Tratamiento para las muelas cordales', '2015-10-29', '2015-11-27', 'Finalizo muy bien', 'Manuel'),
 (2, '2015-10-29', 'Tratamiento para las muelas cordales', '2015-10-29', '2015-11-27', 'Finalizo muy bien', 'Manuel');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `UsuId` int(11) NOT NULL,
+  `UsuCorreo` varchar(100) NOT NULL,
+  `UsuPassword` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`UsuId`, `UsuCorreo`, `UsuPassword`) VALUES
+(1, 'sierramirquezsebastian@gmail.com', '$2y$10$STItLw9EQkzySBII4894wuk9XOuQPvlRixMSW3wf1cBT5XbVm/Shq');
 
 --
 -- Índices para tablas volcadas
@@ -180,7 +202,8 @@ ALTER TABLE `consultorios`
 -- Indices de la tabla `medicos`
 --
 ALTER TABLE `medicos`
-  ADD PRIMARY KEY (`MedIdentificacion`);
+  ADD PRIMARY KEY (`MedIdentificacion`),
+  ADD UNIQUE KEY `MedUsuId` (`MedUsuId`);
 
 --
 -- Indices de la tabla `pacientes`
@@ -195,6 +218,13 @@ ALTER TABLE `tratamientos`
   ADD PRIMARY KEY (`TraNumero`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`UsuId`),
+  ADD UNIQUE KEY `UsuCorreo` (`UsuCorreo`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -202,12 +232,20 @@ ALTER TABLE `tratamientos`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `CitNumero` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `CitNumero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT de la tabla `tratamientos`
 --
 ALTER TABLE `tratamientos`
-  MODIFY `TraNumero` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `TraNumero` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `UsuId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -219,6 +257,13 @@ ALTER TABLE `citas`
   ADD CONSTRAINT `citas_ibfk_1` FOREIGN KEY (`CitMedico`) REFERENCES `medicos` (`MedIdentificacion`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `citas_ibfk_2` FOREIGN KEY (`CitConsultorio`) REFERENCES `consultorios` (`ConNumero`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `citas_ibfk_3` FOREIGN KEY (`CitPaciente`) REFERENCES `pacientes` (`PacIdentificacion`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `medicos`
+--
+ALTER TABLE `medicos`
+  ADD CONSTRAINT `medicos_ibfk_usuario` FOREIGN KEY (`MedUsuId`) REFERENCES `usuarios` (`UsuId`) ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

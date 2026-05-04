@@ -1,77 +1,103 @@
-<?php 
+<?php
+session_start();
 
-	require_once 'controlador/controlador.php';
-	require_once 'modelo/GestorCita.php';
-	require_once 'modelo/cita.php';
-	require_once 'modelo/paciente.php';
-	require_once 'modelo/conexion.php';
+require_once __DIR__ . '/controlador/Controlador.php';
+require_once __DIR__ . '/modelo/Conexion.php';
+require_once __DIR__ . '/modelo/Cita.php';
+require_once __DIR__ . '/modelo/Paciente.php';
+require_once __DIR__ . '/modelo/GestorCita.php';
+require_once __DIR__ . '/modelo/GestorUsuario.php';
 
+$controlador = new Controlador();
+$accion = $_GET['accion'] ?? null;
 
-	//Creación de la instancia de la clase controlador
+$accionesPublicas = ['login', 'validarLogin', 'registrarMedico', 'guardarMedico'];
 
-	$controlador= new Controlador();
+if (!isset($_SESSION['usuario_id']) && !in_array($accion, $accionesPublicas, true)) {
+    header('Location: index.php?accion=login');
+    exit;
+}
 
-	if(isset($_GET["accion"])){
+if ($accion === null) {
+    if (!isset($_SESSION['usuario_id'])) {
+        header('Location: index.php?accion=login');
+        exit;
+    }
 
-		// Botones para las rutas
-		if($_GET["accion"]=="asignar"){
-			$controlador->cargarAsignar();
-		}
+    $controlador->verPagina('vista/html/inicio.php');
+    exit;
+}
 
-		elseif($_GET["accion"]=="consultar"){
-			$controlador->verPagina('vista/html/consultar.php');
-		}
-
-		elseif($_GET["accion"]=="cancelar"){
-			$controlador->verPagina('vista/html/cancelar.php');
-		}
-
-		// Botones para el crud
-
-		elseif($_GET["accion"]=="guardarCita"){
-			$controlador->agregarCita($_POST["asignarDocumento"],$_POST["medico"],
-				$_POST["fecha"],$_POST["hora"],$_POST["consultorio"]);
-		}
-
-		elseif ($_GET["accion"] == "consultarCita") {
-			$controlador->consultarCitas($_GET["consultarDocumento"]);
-		}
-
-		elseif ($_GET["accion"] == "cancelarCita") {
-			$controlador->cancelarCitas($_GET["cancelarDocumento"]);
-		}
-
-		elseif($_GET["accion"]=="consultarPaciente"){
-			$controlador->consultarPaciente($_GET["documento"]);
-		}
-
-		elseif($_GET["accion"]=="ingresarpaciente"){
-			$controlador->agregarPaciente($_GET["pacDocumento"],$_GET["pacNombres"],$_GET["pacApellidos"],$_GET["pacNacimiento"],$_GET["pacSexo"]);
-		}
-
-		elseif($_GET["accion"]=="consultarHoras"){
-			$controlador->consultarHorasDisponibles($_GET["medico"],$_GET["fecha"]);
-		}
-
-		elseif($_GET["accion"]=="verCita"){
-			$controlador->verCita($_GET["numero"]);
-		}
-
-		elseif($_GET["accion"]=="confirmarCancelar"){
-			$controlador->confirmarcancelarCita($_GET["numero"]);
-		}
-
-		elseif($_GET["accion"]=="reporte"){
-			$controlador->generarReporte();
-		}
-
-	}
-
-	else{
-		$controlador->verPagina('vista/html/inicio.php');
-	}
-
-	
-
- ?>
-
+if ($accion === 'login') {
+    $controlador->cargarLogin();
+}
+elseif ($accion === 'validarLogin') {
+    $controlador->validarLogin($_POST['correo'] ?? '', $_POST['password'] ?? '');
+}
+elseif ($accion === 'logout') {
+    $controlador->cerrarSesion();
+}
+elseif ($accion === 'asignar') {
+    $controlador->cargarAsignar();
+}
+elseif ($accion === 'consultar') {
+    $controlador->verPagina('vista/html/consultar.php');
+}
+elseif ($accion === 'cancelar') {
+    $controlador->verPagina('vista/html/cancelar.php');
+}
+elseif ($accion === 'registrarPaciente') {
+    $controlador->cargarRegistrarPaciente($_GET['documento'] ?? '', $_GET['msg'] ?? '');
+}
+elseif ($accion === 'guardarPaciente') {
+    $controlador->guardarPaciente(
+        $_POST['pacDocumento'] ?? '',
+        $_POST['pacNombres'] ?? '',
+        $_POST['pacApellidos'] ?? '',
+        $_POST['pacNacimiento'] ?? '',
+        $_POST['pacSexo'] ?? '',
+        $_POST['pacTelefono'] ?? ''
+    );
+}
+elseif ($accion === 'guardarCita') {
+    $controlador->agregarCita(
+        $_POST['asignarDocumento'] ?? '',
+        $_POST['medico'] ?? '',
+        $_POST['fecha'] ?? '',
+        $_POST['hora'] ?? '',
+        $_POST['consultorio'] ?? ''
+    );
+}
+elseif ($accion === 'consultarCita') {
+    $controlador->consultarCitas($_GET['consultarDocumento'] ?? '');
+}
+elseif ($accion === 'cancelarCita') {
+    $controlador->cancelarCitas($_GET['cancelarDocumento'] ?? '');
+}
+elseif ($accion === 'consultarPaciente') {
+    $controlador->consultarPaciente($_GET['documento'] ?? '');
+}
+elseif ($accion === 'consultarHoras') {
+    $controlador->consultarHorasDisponibles($_GET['medico'] ?? '', $_GET['fecha'] ?? '');
+}
+elseif ($accion === 'verCita') {
+    $controlador->verCita($_GET['numero'] ?? 0);
+}
+elseif ($accion === 'confirmarCancelar') {
+    $controlador->confirmarCancelarCita($_GET['numero'] ?? 0);
+}
+elseif ($accion === 'registrarMedico') {
+    $controlador->cargarRegistrarMedico();
+}
+elseif ($accion === 'guardarMedico') {
+    $controlador->guardarMedico(
+        $_POST['medIdentificacion'] ?? '',
+        $_POST['medNombres'] ?? '',
+        $_POST['medApellidos'] ?? '',
+        $_POST['medCorreo'] ?? '',
+        $_POST['medPassword'] ?? ''
+    );
+}
+else {
+    $controlador->verPagina('vista/html/inicio.php');
+}

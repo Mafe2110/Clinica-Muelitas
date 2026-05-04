@@ -1,69 +1,229 @@
 body{
-	background-color: #dfdfdf;
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(to right, #eef6fb, #d9eaf7);
 }
 
+/* CONTENEDOR PRINCIPAL */
 #contenedor{
-	font-family: "Lucida Sans Unicode", Sans-serif;
-	font-size: 1em;
-	background-color: #ffffff;
-	border: 1px solid #d3d3d3 ;
-	text-align: justify;
-	margin: 10px auto;
-	width: 900px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 1050px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
+/* ENCABEZADO */
 #encabezado{
-	width: 900px;
-	height: 220px;
-	background-image: url('../imagenes/banner.jpg');
-	overflow: hidden;
+    width: 100%;
+    background-image: url('../imagenes/banner.png');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f4f8fc;
+	
+	aspect-ratio: 4 / 1;
 }
 
-h1{
-	text-align: center;
-	margin-top: 10px;
-}
-
-div#contenido{
-	border: 1px #d3d3d3 solid;
-	margin: 20px 20px 10px 140px;
-	padding: 10px 15px;
-}
-
-h2{
-	color: #0075ff;
-	border-bottom: #cfdfb5 1px solid;
-}
-
+/* MENÚ */
 #menu{
-	float: right;
-	width: 100px;
-	background-color: #4aafaf;
-	margin: 20px 10px;
-	padding: 0;
-	list-style-type: none;
+    list-style: none;
+    margin: 0;
+    padding: 15px 0;
+    background: linear-gradient(to right, #00a8cc, #0077b6);
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 #menu li{
-	border: #d3d3d3 1px solid;
-	background-color: #0075ff;
-	margin-bottom: 5px;
-	font-size: 0.9em;
-	text-align: center;
-	line-height: 30px;
+    display: inline-block;
 }
-
-#menu li :hover{
-	background-color: #7092be;
-}
-
-#menu li :active{
-	background-color: #ffffff;
-}
-
 
 #menu a{
-	display: block;
-	text-decoration: none;
-	color: #000000;
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #0077b6;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#menu a:hover{
+    background-color: #0077b6;
+    color: #ffffff;
+}
+
+/* CONTENIDO */
+#contenido{
+    margin: 25px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9fbfd;
+    border: 1px solid #e0e0e0;
+}
+
+/* TÍTULOS */
+h2{
+    color: #0077b6;
+    border-left: 5px solid #00b4d8;
+    padding-left: 10px;
+}
+
+/* TEXTO */
+p{
+    line-height: 1.6;
+}
+
+/* LISTAS */
+ul{
+    margin-top: 10px;
+}
+
+/* Selector que agrupa todos los tipos de botones del sistema */
+button, 
+input[type="submit"], 
+input[type="button"] {
+    /* 1. Suavidad en las esquinas */
+    border-radius: 10px; /* Esto elimina las puntas filosas y da el toque "suave" */
+    
+    /* 2. Colores y Degradado (Acorde a tu paleta de azules) */
+    background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%); /* Degradado profesional */
+    color: #ffffff;
+    border: none;
+    
+    /* 3. Tipografía y Espaciado */
+    padding: 10px 22px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    
+    /* 4. Sombra sutil para dar profundidad */
+    box-shadow: 0 4px 6px rgba(0, 119, 182, 0.15);
+    
+    /* 5. Transición para que los efectos no sean bruscos */
+    transition: all 0.3s ease; /* Define la suavidad del movimiento */
+    outline: none;
+}
+
+/* Efecto suave al pasar el mouse (Hover) */
+button:hover, 
+input[type="submit"]:hover, 
+input[type="button"]:hover {
+    background: linear-gradient(135deg, #00c9f0 0%, #0088cc 100%);
+    box-shadow: 0 6px 15px rgba(0, 119, 182, 0.25); /* La sombra crece suavemente */
+    transform: translateY(-1px); /* Pequeño levante visual */
+}
+
+/* Efecto al hacer clic (Active) */
+button:active, 
+input[type="submit"]:active, 
+input[type="button"]:active {
+    transform: translateY(1px); /* Simula que el botón se hunde */
+    box-shadow: 0 2px 4px rgba(0, 119, 182, 0.2);
+}
+
+/* SELECTOR UNIVERSAL PARA BOTONES Y LA CLASE .boton-suave */
+button, 
+input[type="submit"], 
+input[type="button"], 
+.boton-suave {
+    display: inline-block; /* Necesario para que los enlaces acepten padding */
+    text-decoration: none; /* Quita el subrayado de los links */
+    text-align: center;
+    
+    /* DISEÑO "SUAVE" */
+    border-radius: 10px; 
+    background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+    color: #ffffff !important; /* El !important asegura que el color del link no cambie */
+    border: none;
+    
+    /* ESPACIADO Y TIPOGRAFÍA */
+    padding: 10px 22px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    
+    /* SOMBRA Y TRANSICIÓN */
+    box-shadow: 0 4px 6px rgba(0, 119, 182, 0.15);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* EFECTO AL PASAR EL MOUSE */
+button:hover, 
+input[type="submit"]:hover, 
+input[type="button"]:hover,
+.boton-suave:hover {
+    background: linear-gradient(135deg, #00c9f0 0%, #0088cc 100%);
+    box-shadow: 0 6px 15px rgba(0, 119, 182, 0.25);
+    transform: translateY(-2px);
+}
+
+/* EFECTO AL HACER CLIC */
+button:active, 
+input[type="submit"]:active, 
+.boton-suave:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 119, 182, 0.2);
+}
+
+/* CLASE PARA ALINEAR A LA DERECHA */
+.celda-derecha {
+    text-align: right;
+    padding: 15px;
+}
+
+/* ESTILO PARA CUADROS DE TEXTO, FECHAS Y SELECTORES */
+input[type="text"], 
+input[type="password"], 
+input[type="email"], 
+input[type="date"], 
+select, 
+textarea {
+    /* 1. Bordes y Suavidad */
+    border: 2px solid #e1e8ef; /* Un gris azulado muy suave */
+    border-radius: 8px; /* Bordes redondeados */
+    
+    /* 2. Espaciado interno para que el texto no toque los bordes */
+    padding: 12px 15px;
+    
+    /* 3. Colores y fondo */
+    background-color: #ffffff;
+    color: #444;
+    font-size: 14px;
+    
+    /* 4. Efecto de transición suave */
+    transition: all 0.3s ease-in-out;
+    outline: none;
+    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+/* EFECTO CUANDO EL USUARIO HACE CLIC (FOCUS) */
+input[type="text"]:focus, 
+input[type="password"]:focus, 
+input[type="date"]:focus, 
+select:focus {
+    /* Cambia el borde al azul de tu logo[cite: 2] */
+    border-color: #00b4d8; 
+    
+    /* Crea un resplandor suave alrededor del cuadro */
+    box-shadow: 0 0 8px rgba(0, 180, 216, 0.2); 
+    
+    /* Un ligero cambio de fondo para resaltar dónde se está escribiendo */
+    background-color: #f0faff; 
+}
+
+/* ESTILO ESPECIAL PARA LAS ETIQUETAS (LABEL) */
+/* Si usas <label>, esto les dará un toque más ordenado */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #0077b6; /* Azul oscuro para que sea legible[cite: 2] */
+    font-size: 14px;
 }
